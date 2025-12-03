@@ -1,0 +1,12 @@
+# Clary configuration file
+projects:
+  - name: jaffle_shop
+    data_source: my_db
+    database: postgres
+    schema: test
+    include:
+      - "models/marts/*.yml"
+      - "models/staging/*.yml"
+
+    exclude:
+      - "models/staging/__sources.yml"
