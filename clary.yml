@@ -1,12 +1,12 @@
 # Clary configuration file
 projects:
+  # The name of the project
   - name: jaffle_shop
-    data_source: my_db
+    data_source: postgres_test
     database: postgres
     schema: test
-    include:
-      - "models/marts/*.yml"
-      - "models/staging/*.yml"
 
+    include:
+      - "models/**/*.yml"
     exclude:
       - "models/staging/__sources.yml"
