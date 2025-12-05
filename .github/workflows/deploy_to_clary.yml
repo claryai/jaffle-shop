@@ -37,5 +37,4 @@ jobs:
           directory: ${{ github.event.inputs.directory || '.' }}
           environment: ${{ github.event.inputs.environment || '' }}
           verbose: ${{ github.event.inputs.verbose || 'false' }}
-        env:
-          CLARY_API_KEY: ${{ secrets.CLARY_API_KEY }}
+          api_key: ${{ secrets.CLARY_API_KEY }}
