@@ -33,16 +33,7 @@ runs:
     - name: Deploy to Clary
       shell: bash
       working-directory: ${{ inputs.directory }}
+      env: 
+        CLARY_API_KEY: ${{ secrets.CLARY_API_KEY }}
       run: |
-        set -e
-        if [[ -z "$CLARY_API_KEY" ]]; then
-          echo "❌ Missing CLARY_API_KEY env var"
-          exit 1
-        fi
-
-        CMD="clary deploy"
-        [[ -n "${{ inputs.environment }}" ]] && CMD="$CMD --environment ${{ inputs.environment }}"
-        [[ "${{ inputs.verbose }}" == "true" ]] && CMD="$CMD --verbose"
-
-        echo "Running: $CMD"
-        $CMD
+        clary deploy
