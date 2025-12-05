@@ -1,0 +1,48 @@
+name: 'Clary Deploy'
+description: 'Deploy semantic models to Clary using the CLI'
+author: 'Clary'
+branding:
+  icon: 'upload-cloud'
+  color: 'green'
+
+inputs:
+  directory:
+    description: 'Directory containing clary.yml and models to deploy'
+    required: false
+    default: '.'
+  environment:
+    description: 'Target environment for deployment (e.g., production, staging)'
+    required: false
+    default: ''
+  verbose:
+    description: 'Enable verbose output'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Require Clary CLI
+      shell: bash
+      run: |
+        if ! command -v clary &>/dev/null && ! command -v clary.exe &>/dev/null; then
+          echo "❌ Clary CLI not found. Please install with claryai/actions/install first."
+          exit 1
+        fi
+
+    - name: Deploy to Clary
+      shell: bash
+      working-directory: ${{ inputs.directory }}
+      run: |
+        set -e
+        if [[ -z "$CLARY_API_KEY" ]]; then
+          echo "❌ Missing CLARY_API_KEY env var"
+          exit 1
+        fi
+
+        CMD="clary deploy"
+        [[ -n "${{ inputs.environment }}" ]] && CMD="$CMD --environment ${{ inputs.environment }}"
+        [[ "${{ inputs.verbose }}" == "true" ]] && CMD="$CMD --verbose"
+
+        echo "Running: $CMD"
+        $CMD

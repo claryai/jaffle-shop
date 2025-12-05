@@ -1,0 +1,41 @@
+name: "Deploy to Clary"
+
+on:
+  workflow_dispatch:
+    inputs:
+      directory:
+        description: "Directory with clary.yml"
+        required: false
+        default: "."
+      environment:
+        description: "Environment to deploy to"
+        required: false
+        default: "staging"
+      verbose:
+        description: "Verbose output"
+        required: false
+        default: "false"
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Clary CLI
+        uses: ./.github/actions/install
+        with:
+          version: latest
+
+      - name: Deploy models to Clary
+        uses: ./.github/actions/deploy
+        with:
+          directory: ${{ github.event.inputs.directory || '.' }}
+          environment: ${{ github.event.inputs.environment || '' }}
+          verbose: ${{ github.event.inputs.verbose || 'false' }}
+        env:
+          CLARY_API_KEY: ${{ secrets.CLARY_API_KEY }}
