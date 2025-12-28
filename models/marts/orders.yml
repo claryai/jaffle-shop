@@ -110,15 +110,18 @@ semantic_models:
       - name: order_total
         description: The total amount for each order including taxes.
         agg: sum
+        expr: order_total
       - name: order_count
         expr: 1
         agg: sum
       - name: tax_paid
         description: The total tax paid on each order.
         agg: sum
+        expr: tax_paid
       - name: order_cost
         description: The cost for each order item. Cost is calculated as a sum of the supply cost for each order item.
         agg: sum
+        expr: order_cost
 
 metrics:
   - name: order_total

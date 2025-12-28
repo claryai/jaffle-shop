@@ -2,7 +2,7 @@
 projects:
   # The name of the project
   - name: jaffle_shop
-    data_source: postgres_test
+    data_source: jaffle_shop
     database: postgres
     schema: test
 

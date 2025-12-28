@@ -62,11 +62,14 @@ semantic_models:
       - name: count_lifetime_orders
         description: Total count of orders per customer.
         agg: sum
+        expr: count_lifetime_orders
       - name: lifetime_spend_pretax
         description: Customer lifetime spend before taxes.
         agg: sum
+        expr: lifetime_spend_pretax
       - name: lifetime_spend
         agg: sum
+        expr: lifetime_spend
         description: Gross customer lifetime spend inclusive of taxes.
 
 metrics:
