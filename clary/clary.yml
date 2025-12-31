@@ -1,0 +1,32 @@
+# Clary configuration file
+projects:
+  # The name of the project
+  - name: revenue
+
+    # The name of the related data source in the Clary UI
+    # Can be overridden on a per-model basis
+    data_source: finance_datasource
+
+    # The name of the database where the models are stored
+    # Can be overridden on a per-model basis
+    database: finance
+
+    # The name of the schema where the models are stored
+    # Can be overridden on a per-model basis
+    schema: revenue
+
+    # Include patterns for model files (relative to clary.yml)
+    include:
+      - "docs/revenue/*.yml"
+
+    # Exclude patterns for files to skip (optional)
+    exclude:
+      - "docs/revenue/super-secret.yml"
+
+  # You can define multiple projects for different environments
+  - name: sales
+    data_source: sales_datasource
+    schema: sales
+    database: sales
+    include:
+      - "docs/sales/*.yml"
